@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+# vscode
+*.vscode
+
+# make output
+a1
+a2
+a3
+
+.DS_Store
