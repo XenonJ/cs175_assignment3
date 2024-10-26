@@ -88,9 +88,9 @@ private:
 		lookYSlider->value(canvas->camera->getLookVector().y);
 		lookZSlider->value(canvas->camera->getLookVector().z);
 
-		nearSlider->value(canvas->camera->nearPlane);
-		farSlider->value(canvas->camera->farPlane);
-		angleSlider->value(canvas->camera->viewAngle);
+		nearSlider->value(canvas->camera->getNearPlane());
+		farSlider->value(canvas->camera->getFarPlane());
+		angleSlider->value(canvas->camera->getViewAngle());
 	}
 
 	// Someone changed one of the sliders

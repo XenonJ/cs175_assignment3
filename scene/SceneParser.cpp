@@ -94,6 +94,7 @@ SceneNode* SceneParser :: getRootNode()
 /* this is where it all goes down... */
 bool SceneParser::parse() 
 {
+   // 加载 XML 文件
    TiXmlDocument doc(file_name.c_str());
    bool loaded = doc.LoadFile();
 
@@ -105,6 +106,7 @@ bool SceneParser::parse()
       return false;
    }
 
+   // 获取根节点
    TiXmlElement* txn = doc.FirstChildElement();
    //should be scenefile element. has no siblings.
    if (txn == NULL)
@@ -113,15 +115,16 @@ bool SceneParser::parse()
       return false;
    }
 
-
+   // 检查根节点是否为 <scenefile>
    if (!txn->ValueStr().compare("scenefile"))
    {
       printf("Begin parsing file...\n");
 
       const TiXmlElement* scene_elem = txn->FirstChildElement();
 
+      // 在解析具体数据之前，代码为相机数据（m_cameraData）和全局光照数据（m_globalData）设置了一些默认值，以防止场景文件缺少某些数据时导致程序出错
       /* Default Camera */
-	  m_cameraData.isDir = true;
+	   m_cameraData.isDir = true;
       m_cameraData.pos = glm::vec3(5, 5, 5);
       m_cameraData.up = glm::vec3(0, 1, 0);
       m_cameraData.look = glm::vec3(-1, -1, -1);
@@ -134,10 +137,12 @@ bool SceneParser::parse()
       m_globalData.ks = 0.5f;
       m_globalData.kt = 0.5f;
 
+      // 循环解析每个场景元素
       while (scene_elem)
       {
+         // 解析不同的场景元素
          const string& elem = scene_elem->ValueStr();
-
+         
          if (!elem.compare("globaldata")) 
          {
             if (!parseGlobalData(scene_elem))
